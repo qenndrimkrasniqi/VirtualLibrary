@@ -20,6 +20,7 @@ class Shelf:
         self.number = number
         self.genre = genre
         self.books = []
+        self.get_books()
 
     def __str__(self):
         return f"{self.number}. {self.genre}"
@@ -34,3 +35,23 @@ class Shelf:
 
             book = Book(book_path, number, title, author, self.genre)
             self.books.append(book)
+
+
+class Floor:
+    def __init__(self, source_path, number):
+        self.source_path = source_path
+        self.number = number
+        self.shelves = []
+        self.get_shelves()
+
+    def __str__(self):
+        return f"{self.number}"
+
+    def get_shelves(self):
+        shelves = os.listdir(self.source_path)
+        for shelf_name in shelves:
+            shelf_path = os.path.join(self.source_path, shelf_name)
+            genre = shelf_name.split('-')[1].strip()
+            number = int(shelf_name.split('.')[0])
+            shelf = Shelf(shelf_path, number, genre)
+            self.shelves.append(shelf)
