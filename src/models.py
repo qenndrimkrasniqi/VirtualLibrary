@@ -1,5 +1,6 @@
 import os
 
+
 class Book:
     def __init__(self, source_path, number, title, author, genre):
         self.source_path = source_path
