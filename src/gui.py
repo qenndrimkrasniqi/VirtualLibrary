@@ -15,3 +15,20 @@ def create_search_frame(window):
     tk.Button(master=frame, text="Search", width=15).grid(row=1, column=3)
 
     return ""
+
+def create_results_frame(window):
+    frame = tk.Frame(master=window)
+    frame.pack()
+
+    label_names = ['Title', 'Author', 'Genre', 'Floor', 'Shelf']
+    for indx, label_name in enumerate(label_names):
+        tk.Label(master=frame, text=label_name, width=15).grid(row=0, column=indx)
+
+
+def create_window():
+    window = tk.Tk()
+
+    create_search_frame(window)
+    create_results_frame(window)
+
+    window.mainloop()
