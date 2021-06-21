@@ -1,6 +1,5 @@
 import os
 
-
 class Book:
     def __init__(self, source_path, number, title, author, genre):
         self.source_path = source_path
@@ -55,3 +54,23 @@ class Floor:
             number = int(shelf_name.split('.')[0])
             shelf = Shelf(shelf_path, number, genre)
             self.shelves.append(shelf)
+
+
+class Library:
+    def __init__(self, source_path, name, location):
+        self.source_path = source_path
+        self.name = name
+        self.location = location
+        self.floors = list()
+        self.get_floors()
+
+    def __str__(self):
+        return self.name
+
+    def get_floors(self):
+        floors = os.listdir(self.source_path)
+        for floor in floors:
+            floor_path = os.path.join(self.source_path, floor)
+            floor_number = int(floor.split('.')[0])
+            floor = Floor(floor_path, floor_number)
+            self.floors.append(floor)
