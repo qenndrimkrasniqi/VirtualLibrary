@@ -1,7 +1,4 @@
-import os
 import tkinter as tk
-
-from models import Library, Librarian
 
 
 def create_search_frame(window):
@@ -12,12 +9,19 @@ def create_search_frame(window):
     for indx, label_name in enumerate(label_names):
         tk.Label(master=frame, text=label_name, width=20).grid(row=0, column=indx)
 
-    for indx in range(len(label_names)):
-        tk.Entry(master=frame, width=20).grid(row=1, column=indx)
+    title_entr = tk.Entry(master=frame, width=20)
+    title_entr.grid(row=1, column=0)
 
-    tk.Button(master=frame, text="Search", width=15).grid(row=1, column=3)
+    author_entr = tk.Entry(master=frame, width=20)
+    author_entr.grid(row=1, column=1)
 
-    return ""
+    genre_entr = tk.Entry(master=frame, width=20)
+    genre_entr.grid(row=1, column=2)
+
+    search_btn = tk.Button(master=frame, text="Search", width=15)
+    search_btn.grid(row=1, column=3)
+
+    return title_entr, author_entr, genre_entr, search_btn
 
 
 def create_results_frame(window):
@@ -34,10 +38,10 @@ def create_results_frame(window):
 def create_window():
     window = tk.Tk()
 
-    create_search_frame(window)
+    title_entr, author_entr, genre_entr, search_btn = create_search_frame(window)
     results_frm = create_results_frame(window)
 
-    return window, results_frm
+    return window, results_frm, title_entr, author_entr, genre_entr, search_btn
 
 
 def destroy_table_body(results_frame):
