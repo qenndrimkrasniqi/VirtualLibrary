@@ -4,7 +4,6 @@ import tkinter as tk
 from models import Library, Librarian
 
 
-
 def create_search_frame(window):
     frame = tk.Frame(master=window)
     frame.pack()
@@ -20,6 +19,7 @@ def create_search_frame(window):
 
     return ""
 
+
 def create_results_frame(window):
     frame = tk.Frame(master=window)
     frame.pack()
@@ -29,6 +29,7 @@ def create_results_frame(window):
         tk.Label(master=frame, text=label_name, width=15).grid(row=0, column=indx)
 
     return frame
+
 
 def create_window():
     window = tk.Tk()
@@ -45,7 +46,6 @@ def destroy_table_body(results_frame):
             widget.destroy()
 
 
-
 def populate_table(result, frm_results):
     for indx, item in enumerate(result):
         book, floor, shelf = item
@@ -55,24 +55,3 @@ def populate_table(result, frm_results):
         tk.Label(master=frm_results, text=floor).grid(row=indx + 1, column=3)
         tk.Label(master=frm_results, text=shelf).grid(row=indx + 1, column=4)
 
-
-
-window, results_frm = create_window()
-
-source_path = '../Data/Hivzi Sylejmani - Prishtinë'
-basename = os.path.basename(source_path)
-name, location = basename.split('-')
-
-library = Library(source_path, name.strip(), location.strip())
-
-librarian = Librarian('Sherif', library)
-
-books = librarian.get_books(author='John Steinbeck')
-populate_table(books, results_frm)
-
-destroy_table_body(results_frm)
-
-books = librarian.get_books(genre='Mystery')
-populate_table(books, results_frm)
-
-window.mainloop()
