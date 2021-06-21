@@ -1,4 +1,7 @@
+import os
 import tkinter as tk
+
+from models import Library, Librarian
 
 
 def create_search_frame(window):
@@ -16,6 +19,7 @@ def create_search_frame(window):
 
     return ""
 
+
 def create_results_frame(window):
     frame = tk.Frame(master=window)
     frame.pack()
@@ -24,11 +28,30 @@ def create_results_frame(window):
     for indx, label_name in enumerate(label_names):
         tk.Label(master=frame, text=label_name, width=15).grid(row=0, column=indx)
 
+    return frame
+
 
 def create_window():
     window = tk.Tk()
 
     create_search_frame(window)
-    create_results_frame(window)
+    results_frm = create_results_frame(window)
 
-    window.mainloop()
+    return window, results_frm
+
+
+def destroy_table_body(results_frame):
+    for widget in results_frame.winfo_children():
+        if widget['text'] not in ['Title', 'Author', 'Genre', 'Floor', 'Shelf']:
+            widget.destroy()
+
+
+def populate_table(result, frm_results):
+    for indx, item in enumerate(result):
+        book, floor, shelf = item
+        tk.Label(master=frm_results, text=book.title).grid(row=indx+1, column=0)
+        tk.Label(master=frm_results, text=book.author).grid(row=indx + 1, column=1)
+        tk.Label(master=frm_results, text=book.genre).grid(row=indx + 1, column=2)
+        tk.Label(master=frm_results, text=floor).grid(row=indx + 1, column=3)
+        tk.Label(master=frm_results, text=shelf).grid(row=indx + 1, column=4)
+
